@@ -32,7 +32,9 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONPATH=/app/src
 
-RUN apk add --no-cache build-base postgresql-dev wget
+# Runtime needs only wget (healthcheck); build toolchain stays in the builder
+# stage. asyncpg is already compiled into the venv and does not link libpq.
+RUN apk add --no-cache wget
 
 WORKDIR /app
 
