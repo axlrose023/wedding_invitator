@@ -9,7 +9,6 @@ import { Timeline } from "./components/Timeline";
 import { Gifts } from "./components/Gifts";
 import { Connected } from "./components/Connected";
 import { Attendance } from "./components/Attendance";
-import { Questions } from "./components/Questions";
 import { Stats } from "./components/Stats";
 import { Countdown } from "./components/Countdown";
 import { Footer } from "./components/Footer";
@@ -32,7 +31,6 @@ export default function App() {
       <Gifts />
       <Connected />
       <Attendance />
-      <Questions />
       <Stats />
       <Countdown />
       <Footer />

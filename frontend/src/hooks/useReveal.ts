@@ -21,7 +21,9 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
           }
         }
       },
-      { threshold: 0.15 }
+      // Reveal a little before the element scrolls in, so fast flick-scrolls
+      // never leave an un-revealed (empty) band above a section.
+      { threshold: 0, rootMargin: "0px 0px 120px 0px" }
     );
 
     targets.forEach((t) => io.observe(t));

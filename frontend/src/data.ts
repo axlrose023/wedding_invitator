@@ -64,20 +64,17 @@ export const wedding = {
   gifts: {
     title: "Gifts",
     lines: [
-      "Ми вважаємо вашу присутність на нашому святі найкращим подарунком!",
-      "Але якщо ви бажаєте зробити внесок у наш майбутній будинок, ми будемо вдячні за подарунок у конверті.",
+      "Ми вважаємо вашу присутність на нашому",
+      "святі найкращим подарунком!",
     ],
   },
 
   connected: {
     title: "Stay connected",
-    chatText: "Усі важливі деталі та ваші найкращі кадри ми збиратимемо у спільному чаті.",
-    chatCta: "ПРИЄДНАТИСЯ",
-    chatUrl: "#",
     helpText: "Якщо вам знадобиться допомога або виникнуть запитання, наш координатор завжди на зв'язку:",
-    coordinatorName: "Олена",
+    coordinatorName: "Інна",
     coordinatorRole: "КООРДИНАТОР",
-    coordinatorPhone: "+380 XX XXX XX XX",
+    coordinatorTelegram: "@InnaHanzha",
   },
 
   attendance: {
@@ -114,7 +111,7 @@ export const wedding = {
     // `value: null` -> computed live (days since togetherSince).
     items: [
       { value: null, label: "ДНІ РАЗОМ" },
-      { value: "12", label: "СПІЛЬНИХ ПОДОРОЖЕЙ" },
+      { value: "8", label: "СПІЛЬНИХ ПОДОРОЖЕЙ" },
       { value: "1", label: "НАЙВАЖЛИВІША ВІДПОВІДЬ" },
       { value: "∞", label: "ПЛАНІВ НА МАЙБУТНЄ" },
     ] as { value: string | null; label: string }[],
