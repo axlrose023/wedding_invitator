@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Qwitcher+Grypen:wght@400;700&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --minimal-bg: #faf8f4;
+  --minimal-gray: #f5f5f5;
+  --minimal-text: #111111;
+  --minimal-secondary: #5d5d5d;
+  --minimal-muted: #999999;
+  --minimal-accent: #5d5d5d;
+  --minimal-dark: #171717;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--minimal-bg);
+  color: var(--minimal-text);
+  font-family: "Montserrat", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* uppercase spaced label used for kickers / small captions */
+.label {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 400;
+}
+
+/* cursive section title */
+.section-title {
+  font-family: "Qwitcher Grypen", cursive;
+  color: #353535;
+  line-height: 1;
+  font-weight: 400;
+}
+
+/* full-viewport height that behaves on mobile */
+.h-screen-safe {
+  height: 100vh;
+  height: 100svh;
+}
+
+/* animated equalizer for the music toggle */
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  height: 16px;
+}
+.equalizer > span {
+  width: 2px;
+  height: 5px;
+  background: currentColor;
+  border-radius: 1px;
+}
+.equalizer.playing > span {
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+.equalizer.playing > span:nth-child(1) { animation-delay: -0.6s; }
+.equalizer.playing > span:nth-child(2) { animation-delay: -0.3s; }
+.equalizer.playing > span:nth-child(3) { animation-delay: -0.45s; }
+.equalizer.playing > span:nth-child(4) { animation-delay: -0.15s; }
+
+@keyframes eq-bounce {
+  0%, 100% { height: 4px; }
+  50% { height: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .equalizer.playing > span { animation: none; height: 10px; }
+}
+
+/* ── Intro: cinematic dissolve — one image, no seam ─────────────────── */
+/* The cover drifts toward the viewer, softens and fades out. */
+.intro-cover {
+  transition: opacity 1000ms ease,
+    transform 1400ms cubic-bezier(0.4, 0, 0.2, 1), filter 1000ms ease;
+}
+.intro-cover-out {
+  opacity: 0;
+  transform: scale(1.12);
+  filter: blur(6px);
+}
+
+.intro-title {
+  transition: opacity 700ms ease, transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Warm light that blooms once as the cover opens. */
+.intro-bloom {
+  opacity: 0;
+}
+.intro-leaving .intro-bloom {
+  animation: intro-bloom 1100ms ease-out forwards;
+}
+@keyframes intro-bloom {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  45% { opacity: 0.55; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.7); }
+}
+
+/* The invitation underneath settles gently into focus. */
+.intro-opening .app-content {
+  animation: intro-content-in 1300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes intro-content-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Gentle breathing glow on the call-to-action while the cover waits. */
+.intro-cta {
+  animation: intro-cta-glow 2.6s ease-in-out infinite;
+}
+@keyframes intro-cta-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 22px 0 rgba(200, 168, 106, 0.35);
+    border-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* Respect reduced-motion: no drift or bloom, just a calm cross-fade. */
+@media (prefers-reduced-motion: reduce) {
+  .intro-cover {
+    transition: opacity 700ms ease !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .intro-cover-out {
+    transform: none !important;
+    filter: none !important;
+  }
+  .intro-leaving .intro-bloom {
+    animation: none;
+  }
+  .intro-opening .app-content {
+    animation: none;
+  }
+  .intro-cta {
+    animation: none;
+  }
+}
+
+/* subtle reveal-on-scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

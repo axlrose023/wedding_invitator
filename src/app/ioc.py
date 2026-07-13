@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.modules.auth.service import AuthService
 from app.api.modules.auth.services import JwtService
+from app.api.modules.rsvp.service import RsvpService
 from app.api.modules.users.service import UserService
 from app.clients.providers import HttpClientsProvider
 from app.database.engine import SessionFactory
@@ -48,6 +49,10 @@ class ServicesProvider(Provider):
         self, uow: UnitOfWork, auth_service: AuthService
     ) -> UserService:
         return UserService(uow, auth_service)
+
+    @provide(scope=Scope.REQUEST)
+    async def get_rsvp_service(self, uow: UnitOfWork) -> RsvpService:
+        return RsvpService(uow)
 
 
 def get_async_container() -> AsyncContainer:

@@ -1,10 +1,12 @@
 import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from prometheus_fastapi_instrumentator import Instrumentator
 
 from app.api import register_routers
@@ -56,5 +58,14 @@ def get_production_app() -> FastAPI:
     # Setup Prometheus metrics
     instrumentator = Instrumentator()
     instrumentator.instrument(app).expose(app)
+
+    # Serve the built SPA (frontend/dist) from the same host, if present.
+    # Must be mounted last so API/metrics routes take precedence.
+    repo_root = Path(__file__).resolve().parents[2]
+    spa_dist = repo_root / "frontend" / "dist"
+    if spa_dist.is_dir():
+        app.mount("/", StaticFiles(directory=spa_dist, html=True), name="spa")
+    else:
+        logger.warning("SPA build not found at %s (run `npm run build`)", spa_dist)
 
     return app
