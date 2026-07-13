@@ -1,6 +1,5 @@
 import { useReveal } from "./hooks/useReveal";
 import { MusicProvider } from "./music";
-import { Intro } from "./components/Intro";
 import { MusicPlayer } from "./components/MusicPlayer";
 import { Hero } from "./components/Hero";
 import { Greeting } from "./components/Greeting";
@@ -20,7 +19,6 @@ export default function App() {
 
   return (
     <MusicProvider>
-      <Intro />
       <div
         ref={ref}
         className="app-content relative mx-auto min-h-screen w-full max-w-[480px] bg-minimal-bg shadow-sm"
