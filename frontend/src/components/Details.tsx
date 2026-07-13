@@ -26,7 +26,7 @@ export function Details() {
         <SectionTitle>{w.details.title}</SectionTitle>
       </div>
 
-      <div className="mt-6 flex flex-col gap-6">
+      <div className="mt-10 flex flex-col gap-6">
         {w.details.events.map((e) =>
           e.withPhoto ? (
             // Full-bleed photo: spans the whole column, no side frame.
@@ -47,7 +47,7 @@ export function Details() {
           ) : (
             <div
               key={e.name}
-              className="reveal mx-auto max-w-md px-6 py-10 text-center"
+              className="reveal mx-auto max-w-md px-6 pb-10 text-center"
             >
               <EventBody e={e} />
             </div>
