@@ -52,7 +52,6 @@ export const wedding = {
   timeline: {
     title: "Timeline",
     items: [
-      { time: "14:30", label: "Збір гостей" },
       { time: "15:00", label: "Церемонія" },
       { time: "16:00", label: "Початок бенкету" },
       { time: "18:30", label: "Перший танець" },
