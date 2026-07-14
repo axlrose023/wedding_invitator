@@ -13,24 +13,12 @@ const GuestContext = createContext<GuestApi>({
   loaded: true,
 });
 
-const STORAGE_KEY = "wg";
-
-// Read the guest slug from ?g=… then hide it: strip the query from the address
-// bar and remember it locally, so the URL stays clean and a reload still keeps
-// the personalised greeting.
+// Read the guest slug from ?g=… and KEEP it in the URL. Telegram's in-app
+// browser → "Open in browser" carries the current URL over, so stripping the
+// query here would lose the guest's name on that hop.
 function readSlug(): string | null {
   try {
-    const fromUrl = new URLSearchParams(window.location.search).get("g");
-    if (fromUrl) {
-      try {
-        localStorage.setItem(STORAGE_KEY, fromUrl);
-      } catch {
-        /* storage unavailable — still works for this page load */
-      }
-      window.history.replaceState(null, "", window.location.pathname);
-      return fromUrl;
-    }
-    return localStorage.getItem(STORAGE_KEY);
+    return new URLSearchParams(window.location.search).get("g");
   } catch {
     return null;
   }
