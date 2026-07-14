@@ -13,7 +13,7 @@ export function Greeting() {
     <section className="w-full bg-minimal-paper px-6 pt-20 pb-0 text-minimal-text">
       <SectionTitle>{w.greeting.title}</SectionTitle>
       <div className="reveal mx-auto mt-10 max-w-md text-center">
-        <p className="label mb-6 text-[13px] text-minimal-text">
+        <p className="label mb-6 text-[15px] tracking-[0.25em] text-minimal-text">
           {pending ? " " : heading}
         </p>
         <p className="text-[15px] font-light leading-relaxed text-minimal-secondary">
