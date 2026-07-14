@@ -5,7 +5,7 @@ import { SectionTitle } from "./SectionTitle";
 // left / right of the rail (zig-zag), title aligned to the right.
 export function Timeline() {
   return (
-    <section className="w-full bg-minimal-paper px-6 py-20 text-minimal-text">
+    <section className="w-full bg-minimal-paper px-6 pt-20 pb-0 text-minimal-text">
       <SectionTitle>{w.timeline.title}</SectionTitle>
 
       <div className="reveal relative mx-auto mt-14 max-w-sm">

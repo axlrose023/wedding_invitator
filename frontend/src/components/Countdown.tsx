@@ -30,7 +30,7 @@ export function Countdown() {
   ];
 
   return (
-    <section className="w-full bg-minimal-paper px-6 py-20 text-minimal-text">
+    <section className="w-full bg-minimal-paper px-6 pt-20 pb-0 text-minimal-text">
       <SectionTitle>{w.countdown.title}</SectionTitle>
 
       <div className="reveal mx-auto mt-10 flex max-w-sm justify-center gap-6">

@@ -10,7 +10,7 @@ function daysTogether(): number {
 export function Stats() {
   const days = daysTogether();
   return (
-    <section className="relative w-full overflow-hidden px-6 py-24 text-center text-white">
+    <section className="relative w-full overflow-hidden px-6 py-20 text-center text-white">
       <img
         src="/images/stats.jpg"
         alt=""

@@ -21,7 +21,7 @@ function RouteButton({ href, dark }: { href: string; dark?: boolean }) {
 
 export function Details() {
   return (
-    <section className="w-full bg-minimal-paper pt-8 pb-20 text-minimal-text">
+    <section className="w-full bg-minimal-paper pt-20 pb-0 text-minimal-text">
       <div className="px-6">
         <SectionTitle>{w.details.title}</SectionTitle>
       </div>
