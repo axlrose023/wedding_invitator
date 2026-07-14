@@ -13,9 +13,24 @@ const GuestContext = createContext<GuestApi>({
   loaded: true,
 });
 
+const STORAGE_KEY = "wg";
+
+// Read the guest slug from ?g=… then hide it: strip the query from the address
+// bar and remember it locally, so the URL stays clean and a reload still keeps
+// the personalised greeting.
 function readSlug(): string | null {
   try {
-    return new URLSearchParams(window.location.search).get("g");
+    const fromUrl = new URLSearchParams(window.location.search).get("g");
+    if (fromUrl) {
+      try {
+        localStorage.setItem(STORAGE_KEY, fromUrl);
+      } catch {
+        /* storage unavailable — still works for this page load */
+      }
+      window.history.replaceState(null, "", window.location.pathname);
+      return fromUrl;
+    }
+    return localStorage.getItem(STORAGE_KEY);
   } catch {
     return null;
   }
