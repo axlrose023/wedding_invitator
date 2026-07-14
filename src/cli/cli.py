@@ -112,3 +112,49 @@ def create_user(
             typer.echo(f"User '{username}' created successfully.")
 
     anyio.run(_create_user)
+
+
+@app.command("guests_import")
+def guests_import(
+    csv_path: Annotated[str, typer.Argument(help="CSV with columns: slug,greeting,name")],
+) -> None:
+    """Import (upsert) personalised guests from a CSV file."""
+
+    async def _run():
+        import csv
+
+        container = get_async_container()
+        async with container() as request_container:
+            uow = await request_container.get(UnitOfWork)
+            count = 0
+            with open(csv_path, newline="", encoding="utf-8-sig") as f:
+                for row in csv.DictReader(f):
+                    slug = (row.get("slug") or "").strip()
+                    greeting = (row.get("greeting") or "").strip()
+                    name = (row.get("name") or "").strip()
+                    if not (slug and greeting and name):
+                        continue
+                    await uow.guests.upsert(slug, greeting, name)
+                    count += 1
+            await uow.commit()
+            typer.echo(
+                typer.style(
+                    f"Imported/updated {count} guests.", fg=typer.colors.GREEN
+                )
+            )
+
+    anyio.run(_run)
+
+
+@app.command("guests_list")
+def guests_list() -> None:
+    """List all personalised guests and their links."""
+
+    async def _run():
+        container = get_async_container()
+        async with container() as request_container:
+            uow = await request_container.get(UnitOfWork)
+            for g in await uow.guests.get_all():
+                typer.echo(f"{g.slug}\t{g.name}\t{g.greeting}")
+
+    anyio.run(_run)

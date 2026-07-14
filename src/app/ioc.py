@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.modules.auth.service import AuthService
 from app.api.modules.auth.services import JwtService
+from app.api.modules.guests.service import GuestService
 from app.api.modules.rsvp.service import RsvpService
 from app.api.modules.users.service import UserService
 from app.clients.providers import HttpClientsProvider
@@ -53,6 +54,10 @@ class ServicesProvider(Provider):
     @provide(scope=Scope.REQUEST)
     async def get_rsvp_service(self, uow: UnitOfWork) -> RsvpService:
         return RsvpService(uow)
+
+    @provide(scope=Scope.REQUEST)
+    async def get_guest_service(self, uow: UnitOfWork) -> GuestService:
+        return GuestService(uow)
 
 
 def get_async_container() -> AsyncContainer:

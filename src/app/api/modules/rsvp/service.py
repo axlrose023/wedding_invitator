@@ -10,10 +10,18 @@ class RsvpService:
         self.uow = uow
 
     async def create_rsvp(self, request: CreateRsvpRequest) -> Rsvp:
+        guest_id = None
+        name = request.name
+        if request.guest_slug:
+            guest = await self.uow.guests.get_by_slug(request.guest_slug)
+            if guest is not None:
+                guest_id = guest.id
+                name = guest.name  # trust the invitation, not the client
         rsvp = Rsvp(
-            name=request.name,
+            name=name,
             attending=request.attending,
             comment=request.comment,
+            guest_id=guest_id,
         )
         await self.uow.rsvps.create(rsvp)
         await self.uow.commit()

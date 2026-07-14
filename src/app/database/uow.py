@@ -2,6 +2,7 @@ from typing import Self
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.modules.guests.gateway import GuestGateway
 from app.api.modules.rsvp.gateway import RsvpGateway
 from app.api.modules.users.gateway import UserGateway
 
@@ -9,11 +10,13 @@ from app.api.modules.users.gateway import UserGateway
 class UnitOfWork:
     users: UserGateway
     rsvps: RsvpGateway
+    guests: GuestGateway
 
     def __init__(self, session: AsyncSession):
         self.session = session
         self.users = UserGateway(session)
         self.rsvps = RsvpGateway(session)
+        self.guests = GuestGateway(session)
 
     async def __aenter__(self):
         return self

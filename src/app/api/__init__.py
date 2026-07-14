@@ -3,9 +3,11 @@ from fastapi import APIRouter
 
 def register_routers(router: APIRouter) -> None:
     from app.api.modules.auth.routes import router as auth_router
+    from app.api.modules.guests.routes import router as guests_router
     from app.api.modules.rsvp.routes import router as rsvp_router
     from app.api.modules.users.routes import router as users_router
 
     router.include_router(auth_router, prefix="/auth", tags=["Auth"])
     router.include_router(users_router, prefix="/users", tags=["Users"])
     router.include_router(rsvp_router, prefix="/api/rsvp", tags=["RSVP"])
+    router.include_router(guests_router, prefix="/api/guests", tags=["Guests"])

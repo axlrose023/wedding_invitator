@@ -2,23 +2,31 @@ import { useState } from "react";
 import { wedding as w } from "../data";
 import { SectionTitle } from "./SectionTitle";
 import { submitRsvp } from "../api";
+import { useGuest } from "../guest";
 
 export function Attendance() {
   const a = w.attendance;
+  const { guest, slug } = useGuest();
   const [name, setName] = useState("");
   const [attending, setAttending] = useState<boolean | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle"
   );
 
-  const canSubmit = name.trim().length > 0 && attending !== null;
+  // A personalised guest doesn't type a name — it's taken from the invitation.
+  const canSubmit =
+    (guest !== null || name.trim().length > 0) && attending !== null;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!canSubmit) return;
     setStatus("sending");
     try {
-      await submitRsvp({ name: name.trim(), attending: attending! });
+      await submitRsvp({
+        name: guest ? guest.name : name.trim(),
+        attending: attending!,
+        guest_slug: slug ?? undefined,
+      });
       setStatus("done");
     } catch {
       setStatus("error");
@@ -48,13 +56,19 @@ export function Attendance() {
           {a.subtitle}
         </p>
 
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Ваше ім'я"
-          className="mt-8 w-full border-b border-minimal-text/25 bg-transparent py-3 text-center text-[15px] font-light outline-none placeholder:text-minimal-muted focus:border-minimal-text"
-        />
+        {guest ? (
+          <p className="mt-8 text-center text-[17px] font-medium text-minimal-text">
+            {guest.name}
+          </p>
+        ) : (
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Ваше ім'я"
+            className="mt-8 w-full border-b border-minimal-text/25 bg-transparent py-3 text-center text-[15px] font-light outline-none placeholder:text-minimal-muted focus:border-minimal-text"
+          />
+        )}
 
         <p className="mt-10 text-center text-[13px] font-light text-minimal-secondary">
           {a.question}

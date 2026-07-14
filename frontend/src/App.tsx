@@ -1,5 +1,6 @@
 import { useReveal } from "./hooks/useReveal";
 import { MusicProvider } from "./music";
+import { GuestProvider } from "./guest";
 import { MusicPlayer } from "./components/MusicPlayer";
 import { Hero } from "./components/Hero";
 import { Greeting } from "./components/Greeting";
@@ -17,6 +18,7 @@ export default function App() {
   const ref = useReveal<HTMLDivElement>();
 
   return (
+    <GuestProvider>
     <MusicProvider>
       <div
         ref={ref}
@@ -36,5 +38,6 @@ export default function App() {
       <Footer />
       </div>
     </MusicProvider>
+    </GuestProvider>
   );
 }
