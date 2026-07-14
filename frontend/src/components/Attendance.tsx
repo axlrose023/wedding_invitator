@@ -27,7 +27,7 @@ export function Attendance() {
 
   if (status === "done") {
     return (
-      <section className="w-full bg-minimal-paper px-6 pt-20 pb-0 text-center text-minimal-text">
+      <section className="w-full bg-minimal-paper px-6 py-20 text-center text-minimal-text">
         <SectionTitle>{a.title}</SectionTitle>
         <p className="mx-auto mt-8 max-w-sm text-[15px] font-light text-minimal-secondary">
           Дякуємо! Вашу відповідь збережено.

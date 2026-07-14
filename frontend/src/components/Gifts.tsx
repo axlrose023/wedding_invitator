@@ -3,7 +3,7 @@ import { SectionTitle } from "./SectionTitle";
 
 export function Gifts() {
   return (
-    <section className="w-full bg-minimal-paper px-6 pt-20 pb-0 text-minimal-text">
+    <section className="w-full bg-minimal-paper px-6 py-20 text-minimal-text">
       <SectionTitle>{w.gifts.title}</SectionTitle>
 
       <div className="reveal mx-auto mt-10 max-w-md text-center">
